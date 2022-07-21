@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oa.mapper.ExpimageMapper">
+  <resultMap id="BaseResultMap" type="com.oa.pojo.Expimage">
+    <id column="imgid" jdbcType="INTEGER" property="imgid" />
+    <result column="expid" jdbcType="INTEGER" property="expid" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="filetype" jdbcType="VARCHAR" property="filetype" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    imgid, expid, realname, filename, filetype
+  </sql>
+  <select id="selectByExample" parameterType="com.oa.pojo.ExpimageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expimage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from expimage
+    where imgid = #{imgid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from expimage
+    where imgid = #{imgid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.oa.pojo.ExpimageExample">
+    delete from expimage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.oa.pojo.Expimage">
+    insert into expimage (imgid, expid, realname,
+                          filename, filetype)
+    values (#{imgid,jdbcType=INTEGER}, #{expid,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR},
+            #{filename,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oa.pojo.Expimage">
+    insert into expimage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imgid != null">
+        imgid,
+      </if>
+      <if test="expid != null">
+        expid,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="filetype != null">
+        filetype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imgid != null">
+        #{imgid,jdbcType=INTEGER},
+      </if>
+      <if test="expid != null">
+        #{expid,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null">
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.oa.pojo.ExpimageExample" resultType="java.lang.Long">
+    select count(*) from expimage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update expimage
+    <set>
+      <if test="record.imgid != null">
+        imgid = #{record.imgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.expid != null">
+        expid = #{record.expid,jdbcType=INTEGER},
+      </if>
+      <if test="record.realname != null">
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null">
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filetype != null">
+        filetype = #{record.filetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update expimage
+    set imgid = #{record.imgid,jdbcType=INTEGER},
+    expid = #{record.expid,jdbcType=INTEGER},
+    realname = #{record.realname,jdbcType=VARCHAR},
+    filename = #{record.filename,jdbcType=VARCHAR},
+    filetype = #{record.filetype,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oa.pojo.Expimage">
+    update expimage
+    <set>
+      <if test="expid != null">
+        expid = #{expid,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null">
+        filetype = #{filetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where imgid = #{imgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oa.pojo.Expimage">
+    update expimage
+    set expid = #{expid,jdbcType=INTEGER},
+        realname = #{realname,jdbcType=VARCHAR},
+        filename = #{filename,jdbcType=VARCHAR},
+        filetype = #{filetype,jdbcType=VARCHAR}
+    where imgid = #{imgid,jdbcType=INTEGER}
+  </update>
+</mapper>

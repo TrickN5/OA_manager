@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oa.mapper.PaymentMapper">
+  <resultMap id="BaseResultMap" type="com.oa.pojo.Payment">
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="payempid" jdbcType="VARCHAR" property="payempid" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="paytime" jdbcType="DATE" property="paytime" />
+    <result column="expid" jdbcType="INTEGER" property="expid" />
+    <result column="empid" jdbcType="VARCHAR" property="empid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pid, payempid, amount, paytime, expid, empid
+  </sql>
+  <select id="selectByExample" parameterType="com.oa.pojo.PaymentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from payment
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.oa.pojo.PaymentExample">
+    delete from payment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.oa.pojo.Payment">
+    insert into payment (pid, payempid, amount, 
+      paytime, expid, empid)
+    values (#{pid,jdbcType=INTEGER}, #{payempid,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, 
+      #{paytime,jdbcType=DATE}, #{expid,jdbcType=INTEGER}, #{empid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oa.pojo.Payment">
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="payempid != null">
+        payempid,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="paytime != null">
+        paytime,
+      </if>
+      <if test="expid != null">
+        expid,
+      </if>
+      <if test="empid != null">
+        empid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="payempid != null">
+        #{payempid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="paytime != null">
+        #{paytime,jdbcType=DATE},
+      </if>
+      <if test="expid != null">
+        #{expid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.oa.pojo.PaymentExample" resultType="java.lang.Long">
+    select count(*) from payment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update payment
+    <set>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.payempid != null">
+        payempid = #{record.payempid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.paytime != null">
+        paytime = #{record.paytime,jdbcType=DATE},
+      </if>
+      <if test="record.expid != null">
+        expid = #{record.expid,jdbcType=INTEGER},
+      </if>
+      <if test="record.empid != null">
+        empid = #{record.empid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update payment
+    set pid = #{record.pid,jdbcType=INTEGER},
+      payempid = #{record.payempid,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DOUBLE},
+      paytime = #{record.paytime,jdbcType=DATE},
+      expid = #{record.expid,jdbcType=INTEGER},
+      empid = #{record.empid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oa.pojo.Payment">
+    update payment
+    <set>
+      <if test="payempid != null">
+        payempid = #{payempid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="paytime != null">
+        paytime = #{paytime,jdbcType=DATE},
+      </if>
+      <if test="expid != null">
+        expid = #{expid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        empid = #{empid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oa.pojo.Payment">
+    update payment
+    set payempid = #{payempid,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      paytime = #{paytime,jdbcType=DATE},
+      expid = #{expid,jdbcType=INTEGER},
+      empid = #{empid,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

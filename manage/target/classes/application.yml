@@ -1,0 +1,8 @@
+#配置视图解析器
+spring:
+  profiles:
+    active: mapper  #表示当期配置文件被加载的时候,会动态关联加载application-mapper.yml文件
+  thymeleaf:
+    cache: false
+server:
+  port: 80
