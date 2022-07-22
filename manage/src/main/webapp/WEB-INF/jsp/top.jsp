@@ -30,11 +30,11 @@
 </div>
 
 <ul class="nav">
-    <li><a href="deptAdd.html" target="rightFrame" class="selected"><img src="../images/icon01.png" title="添加部门" /><h2>添加部门</h2></a></li>
-    <li><a href="empAdd.html" target="rightFrame"><img src="../images/icon02.png" title="添加员工" /><h2>添加员工</h2></a></li>
-    <li><a href="empList.html"  target="rightFrame"><img src="../images/icon03.png" title="员工管理" /><h2>员工管理</h2></a></li>
-    <li><a href="expenseAdd.html"  target="rightFrame"><img src="../images/icon04.png" title="添加报销" /><h2>添加报销</h2></a></li>
-    <li><a href="dutyAdd.html" target="rightFrame"><img src="../images/icon05.png" title="签到签退" /><h2>签到签退</h2></a></li>
+    <li><a href="deptAdd" target="rightFrame" class="selected"><img src="../images/icon01.png" title="添加部门" /><h2>添加部门</h2></a></li>
+    <li><a href="empAdd" target="rightFrame"><img src="../images/icon02.png" title="添加员工" /><h2>添加员工</h2></a></li>
+    <li><a href="showEmpList"  target="rightFrame"><img src="../images/icon03.png" title="员工管理" /><h2>员工管理</h2></a></li>
+    <li><a href="expenseAdd"  target="rightFrame"><img src="../images/icon04.png" title="添加报销" /><h2>添加报销</h2></a></li>
+    <li><a href="dutyAdd" target="rightFrame"><img src="../images/icon05.png" title="签到签退" /><h2>签到签退</h2></a></li>
     <li><a href="myInfo.html"  target="rightFrame"><img src="../images/icon06.png" title="我的信息" /><h2>我的信息</h2></a></li>
 </ul>
 
