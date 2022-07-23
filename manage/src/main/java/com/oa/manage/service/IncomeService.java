@@ -1,5 +1,6 @@
 package com.oa.manage.service;
 
+import com.oa.commons.IncomeData;
 import com.oa.pojo.Dept;
 import com.oa.pojo.Employee;
 import com.oa.pojo.Income;
@@ -13,4 +14,6 @@ public interface IncomeService {
     List<Dept> selectAllDept();
 
     List<Income> findAllIncome();
+
+    public List<IncomeData> getIncomeDatas();
 }

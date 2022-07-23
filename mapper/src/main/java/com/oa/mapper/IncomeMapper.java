@@ -1,5 +1,6 @@
 package com.oa.mapper;
 
+import com.oa.commons.IncomeData;
 import com.oa.pojo.Income;
 import com.oa.pojo.IncomeExample;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +31,6 @@ public interface IncomeMapper {
     int updateByPrimaryKeySelective(Income record);
 
     int updateByPrimaryKey(Income record);
+
+    public List<IncomeData> getIncomeDatas();
 }

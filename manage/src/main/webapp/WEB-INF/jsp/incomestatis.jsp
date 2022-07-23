@@ -1,58 +1,55 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Brian
-  Date: 2022/7/23
-  Time: 23:28
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath(); //获取当前工程的根目录
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/"; //项目url根目录
+%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>无标题文档</title>
-
+    <base href="<%=basePath%>"> <!--这个让此文件下的路径都相对于当前工程开始-->
+    <title>Title</title>
 </head>
-
 <body style="height: 100%; margin: 0">
-<div id="container" style="height: 100%"></div>
+<div >
+    <h1 align="center">公司收入统计柱状图</h1>
+</div>
+<div id="container" style="height: 90%"></div>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
 
-
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
 <script type="text/javascript">
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-        renderer: 'canvas',
-        useDirtyRect: false
-    });
-    var app = {};
+    //页面加载事件
+    $(function () {
+        //发送ajax请求后台取数据(axios发送http请求后台)
+        $.get("getIncomeDatas",function (data) {
+            // eval("var a =你好"); // 可以转成 var a ="你好"
+            // eval("var date = new date()"); // 可以转成 var date = new date()
+            // var datas = [['周一', '周二', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],[1900, 2000, 1500, 800, 700, 1010, 1030]]
+            eval("var datas =" + data);  //eval()函数可以把字符串转成对应的数据类型
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+            var option;
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: datas[0]
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: datas[1],
+                        type: 'bar'
+                    }
+                ]
+            };
 
-    var option;
-
-    option = {
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                data: [120, 200, 150, 80, 70, 110, 130],
-                type: 'bar',
-                showBackground: true,
-                backgroundStyle: {
-                    color: 'rgba(180, 180, 180, 0.2)'
-                }
+            if (option && typeof option === 'object') {
+                myChart.setOption(option);
             }
-        ]
-    };
-
-    if (option && typeof option === 'object') {
-        myChart.setOption(option);
-    }
-
-    window.addEventListener('resize', myChart.resize);
+        })
+    })
 </script>
 </body>
 </html>

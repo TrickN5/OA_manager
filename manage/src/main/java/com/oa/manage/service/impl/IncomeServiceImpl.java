@@ -1,6 +1,7 @@
 package com.oa.manage.service.impl;
 
 
+import com.oa.commons.IncomeData;
 import com.oa.manage.service.EmpService;
 import com.oa.manage.service.IncomeService;
 import com.oa.mapper.DeptMapper;
@@ -46,4 +47,10 @@ public class IncomeServiceImpl implements IncomeService {
         }
         return incomes;
     }
+
+    @Override
+    public List<IncomeData> getIncomeDatas() {
+        return incomeMapper.getIncomeDatas();
+    }
 }
+

@@ -1,228 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oa.mapper.IncomeMapper">
-  <resultMap id="BaseResultMap" type="com.oa.pojo.Income">
-    <id column="icid" jdbcType="INTEGER" property="icid" />
-    <result column="amount" jdbcType="INTEGER" property="amount" />
-    <result column="icdate" jdbcType="DATE" property="icdate" />
-    <result column="ictype" jdbcType="VARCHAR" property="ictype" />
-    <result column="indesc" jdbcType="VARCHAR" property="indesc" />
-    <result column="userid" jdbcType="VARCHAR" property="userid" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.oa.pojo.Income">
+        <id column="icid" jdbcType="INTEGER" property="icid"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="icdate" jdbcType="DATE" property="icdate"/>
+        <result column="ictype" jdbcType="VARCHAR" property="ictype"/>
+        <result column="indesc" jdbcType="VARCHAR" property="indesc"/>
+        <result column="userid" jdbcType="VARCHAR" property="userid"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        icid
+        , amount, icdate, ictype, indesc, userid
+    </sql>
+    <select id="selectByExample" parameterType="com.oa.pojo.IncomeExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    icid, amount, icdate, ictype, indesc, userid
-  </sql>
-  <select id="selectByExample" parameterType="com.oa.pojo.IncomeExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from income
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from income
-    where icid = #{icid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from income
-    where icid = #{icid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.oa.pojo.IncomeExample">
-    delete from income
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.oa.pojo.Income">
-    insert into income (icid, amount, icdate, 
-      ictype, indesc, userid
-      )
-    values (#{icid,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{icdate,jdbcType=DATE}, 
-      #{ictype,jdbcType=VARCHAR}, #{indesc,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.oa.pojo.Income">
-    insert into income
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="icid != null">
-        icid,
-      </if>
-      <if test="amount != null">
-        amount,
-      </if>
-      <if test="icdate != null">
-        icdate,
-      </if>
-      <if test="ictype != null">
-        ictype,
-      </if>
-      <if test="indesc != null">
-        indesc,
-      </if>
-      <if test="userid != null">
-        userid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="icid != null">
-        #{icid,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null">
-        #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="icdate != null">
-        #{icdate,jdbcType=DATE},
-      </if>
-      <if test="ictype != null">
-        #{ictype,jdbcType=VARCHAR},
-      </if>
-      <if test="indesc != null">
-        #{indesc,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null">
-        #{userid,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.oa.pojo.IncomeExample" resultType="java.lang.Long">
-    select count(*) from income
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update income
-    <set>
-      <if test="record.icid != null">
-        icid = #{record.icid,jdbcType=INTEGER},
-      </if>
-      <if test="record.amount != null">
+        <include refid="Base_Column_List"/>
+        from income
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from income
+        where icid = #{icid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from income
+        where icid = #{icid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.oa.pojo.IncomeExample">
+        delete from income
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.oa.pojo.Income">
+        insert into income (icid, amount, icdate,
+                            ictype, indesc, userid)
+        values (#{icid,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{icdate,jdbcType=DATE},
+                #{ictype,jdbcType=VARCHAR}, #{indesc,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.oa.pojo.Income">
+        insert into income
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="icid != null">
+                icid,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="icdate != null">
+                icdate,
+            </if>
+            <if test="ictype != null">
+                ictype,
+            </if>
+            <if test="indesc != null">
+                indesc,
+            </if>
+            <if test="userid != null">
+                userid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="icid != null">
+                #{icid,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="icdate != null">
+                #{icdate,jdbcType=DATE},
+            </if>
+            <if test="ictype != null">
+                #{ictype,jdbcType=VARCHAR},
+            </if>
+            <if test="indesc != null">
+                #{indesc,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.oa.pojo.IncomeExample" resultType="java.lang.Long">
+        select count(*) from income
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update income
+        <set>
+            <if test="record.icid != null">
+                icid = #{record.icid,jdbcType=INTEGER},
+            </if>
+            <if test="record.amount != null">
+                amount = #{record.amount,jdbcType=INTEGER},
+            </if>
+            <if test="record.icdate != null">
+                icdate = #{record.icdate,jdbcType=DATE},
+            </if>
+            <if test="record.ictype != null">
+                ictype = #{record.ictype,jdbcType=VARCHAR},
+            </if>
+            <if test="record.indesc != null">
+                indesc = #{record.indesc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userid != null">
+                userid = #{record.userid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update income
+        set icid = #{record.icid,jdbcType=INTEGER},
         amount = #{record.amount,jdbcType=INTEGER},
-      </if>
-      <if test="record.icdate != null">
         icdate = #{record.icdate,jdbcType=DATE},
-      </if>
-      <if test="record.ictype != null">
         ictype = #{record.ictype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.indesc != null">
         indesc = #{record.indesc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userid != null">
-        userid = #{record.userid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update income
-    set icid = #{record.icid,jdbcType=INTEGER},
-      amount = #{record.amount,jdbcType=INTEGER},
-      icdate = #{record.icdate,jdbcType=DATE},
-      ictype = #{record.ictype,jdbcType=VARCHAR},
-      indesc = #{record.indesc,jdbcType=VARCHAR},
-      userid = #{record.userid,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.oa.pojo.Income">
-    update income
-    <set>
-      <if test="amount != null">
-        amount = #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="icdate != null">
-        icdate = #{icdate,jdbcType=DATE},
-      </if>
-      <if test="ictype != null">
-        ictype = #{ictype,jdbcType=VARCHAR},
-      </if>
-      <if test="indesc != null">
-        indesc = #{indesc,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null">
-        userid = #{userid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where icid = #{icid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.oa.pojo.Income">
-    update income
-    set amount = #{amount,jdbcType=INTEGER},
-      icdate = #{icdate,jdbcType=DATE},
-      ictype = #{ictype,jdbcType=VARCHAR},
-      indesc = #{indesc,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=VARCHAR}
-    where icid = #{icid,jdbcType=INTEGER}
-  </update>
+        userid = #{record.userid,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.oa.pojo.Income">
+        update income
+        <set>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="icdate != null">
+                icdate = #{icdate,jdbcType=DATE},
+            </if>
+            <if test="ictype != null">
+                ictype = #{ictype,jdbcType=VARCHAR},
+            </if>
+            <if test="indesc != null">
+                indesc = #{indesc,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                userid = #{userid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where icid = #{icid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.oa.pojo.Income">
+        update income
+        set amount = #{amount,jdbcType=INTEGER},
+            icdate = #{icdate,jdbcType=DATE},
+            ictype = #{ictype,jdbcType=VARCHAR},
+            indesc = #{indesc,jdbcType=VARCHAR},
+            userid = #{userid,jdbcType=VARCHAR}
+        where icid = #{icid,jdbcType=INTEGER}
+    </update>
+
+    <select id="getIncomeDatas" resultType="com.oa.commons.IncomeData">
+        select indesc, sum(amount) totalmount from income group by indesc
+    </select>
 </mapper>
