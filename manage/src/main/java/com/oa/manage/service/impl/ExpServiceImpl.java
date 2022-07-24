@@ -31,6 +31,9 @@ public class ExpServiceImpl implements ExpService {
     @Autowired
     private AuditingMapper auditingMapper;
 
+    @Autowired
+    private PaymentMapper paymentMapper;
+
     @Override
     public List<Employee> getAllMgr() {
         EmployeeExample exp = new EmployeeExample();
@@ -101,6 +104,14 @@ public class ExpServiceImpl implements ExpService {
             //进入审核
             if ("xiaoqiao".equals(auditing.getEmpid())) { //是财务
                 //添加财务支出
+                Payment payment = new Payment();
+                payment.setAmount(expense.getTotalamount());
+                payment.setExpid(expid);
+                payment.setEmpid(expense.getEmpid());
+                payment.setPaytime(new Date());
+                payment.setPayempid("xiaoqiao");//处理支出人的id
+                //写入数据到数据库
+                paymentMapper.insert(payment);
 
                 //添加审核记录(审核信息写入auditing表中)
                 auditingMapper.insert(auditing);

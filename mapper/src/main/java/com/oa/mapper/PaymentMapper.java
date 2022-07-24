@@ -1,8 +1,10 @@
 package com.oa.mapper;
 
+import com.oa.commons.PaymentData;
 import com.oa.pojo.Payment;
 import com.oa.pojo.PaymentExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,4 +32,7 @@ public interface PaymentMapper {
     int updateByPrimaryKeySelective(Payment record);
 
     int updateByPrimaryKey(Payment record);
+
+    @Select("select expid,sum(amount) totalamout from payment group by expid")
+    public List<PaymentData> getPayments();
 }
